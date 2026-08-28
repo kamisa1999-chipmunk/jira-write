@@ -1,5 +1,5 @@
-"""Service-layer helpers for Jira write."""
+"""Service-layer helpers for sprints and issues."""
 
-from . import issue_write, metadata, sprints
+from . import issue_write, issues, metadata, sprint_management, sprints
 
-__all__ = ["issue_write", "metadata", "sprints"]
+__all__ = ["issues", "sprints", "metadata", "issue_write", "sprint_management"]

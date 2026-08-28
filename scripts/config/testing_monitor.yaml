@@ -1,0 +1,40 @@
+# Пороги ожидания разработческой задачи в статусе To Test (рабочие дни, без праздников).
+warning_working_days: 3
+critical_working_days: 5
+
+# Label старого тестового flow: сама dev-задача = очередь на тест.
+old_test_flow_label: old-test-flow
+
+closed_statuses:
+  - Done
+  - Canceled
+
+# Testing-задача ещё не готова к тестированию (новый flow).
+testing_not_ready_statuses:
+  - New
+  - To Discovery
+  - Discovery
+
+# Ёмкость тестирования для рекомендации спринта.
+# hours_per_working_day — главный калибровочный параметр:
+# сколько часов оценённых testing-задач команда реально закрывает за рабочий день.
+# Начните с консервативного значения; потом откалибруйте по истории спринтов.
+testing_capacity:
+  hours_per_working_day: 6
+  default_issue_hours: 4
+  safety_factor: 0.8
+  # Опционально: множитель на число тестировщиков (по умолчанию 1).
+  qa_count: 1
+
+# Качество оценок в очереди тестирования.
+# Если доля задач без оценки ≥ порога — предупреждение, прогноз не считать точным.
+estimate_quality:
+  missing_estimate_warning_percent: 20
+
+# Окно рабочего дня для подсчёта working days (праздники не учитываются).
+workday:
+  start_hour: 10
+  start_minute: 0
+  end_hour: 18
+  end_minute: 0
+  hours_per_workday: 8

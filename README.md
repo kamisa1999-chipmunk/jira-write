@@ -1,53 +1,68 @@
 # jira-write
 
-Cursor-скилл и Python CLI для создания и изменения задач в Jira: свободный текст → preview → явное подтверждение → запись.
+Публичные Cursor-скиллы и Python CLI для Jira (проект CAT2 / Goldapple). Заметки про людей сюда не входят.
 
-Это отдельный репозиторий **без** заметок про команду. Правила и маппинг полей заточены под проект **CAT2** (Goldapple) — для другого проекта скопируй `scripts/config/projects/CAT2.json` и поправь поля.
+Репозиторий специально **не переименовывали**: старая ссылка работает.
 
-## Что внутри
+https://github.com/kamisa1999-chipmunk/jira-write
 
-```text
-skill/                         # скилл для Cursor
-  SKILL.md
-  reference.md
-config/issue-creation-rules.md # типы, prefix, поля, вопросы Q-*
-scripts/                       # CLI и клиент Jira
-  config/projects/CAT2.json    # customfield’ы, алиасы
-  cli/create_issue.py
-  cli/update_issue.py
-  …
-```
+## Скиллы
 
-Не входит: карточки людей, 1:1, токены, отчёты, Confluence/GitLab.
+Каждый скилл — папка с `SKILL.md`. Подключение в Cursor — симлинк в `~/.cursor/skills/`.
 
-В `CAT2.json` есть короткие алиасы Jira-логинов («маша» → `kafanova_m`) — это не HR-заметки, без них фразы вроде «назначь на Машу» не сработают. Свой список можно вычистить или заменить.
+| Папка | Зачем |
+|-------|--------|
+| `skills/jira-write` | создать / обновить задачу (preview → подтверждение → apply) |
+| `skills/jira-search` | одна задача или поиск по JQL |
+| `skills/jira-history` | changelog и хронология; опционально MR (`--with-git`) |
+| `skills/sprint-review` | снимок активного спринта |
+| `skills/testing-monitor` | очередь To Test и ёмкость теста |
+| `skills/sprint-management` | новый спринт + страница Confluence |
+| `skills/jira-employee-analysis` | факты по сотруднику из Jira (без ОС) |
 
-## Как подключить скилл в Cursor
+Путь `skill/` оставлен как ярлык на `skills/jira-write`, чтобы старая инструкция `ln -s …/skill` не ломалась.
 
 ```bash
 git clone https://github.com/kamisa1999-chipmunk/jira-write.git
-ln -s "$(pwd)/jira-write/skill" ~/.cursor/skills/jira-write
+cd jira-write
+
+ln -s "$(pwd)/skills/jira-write" ~/.cursor/skills/jira-write
+ln -s "$(pwd)/skills/jira-search" ~/.cursor/skills/jira-search
+ln -s "$(pwd)/skills/jira-history" ~/.cursor/skills/jira-history
+ln -s "$(pwd)/skills/sprint-review" ~/.cursor/skills/sprint-review
+ln -s "$(pwd)/skills/testing-monitor" ~/.cursor/skills/testing-monitor
+ln -s "$(pwd)/skills/sprint-management" ~/.cursor/skills/sprint-management
+ln -s "$(pwd)/skills/jira-employee-analysis" ~/.cursor/skills/jira-employee-analysis
 ```
 
-Если папка `~/.cursor/skills/jira-write` уже есть — сначала переименуй или удали её (это должен быть симлинк на этот `skill/`).
+Если открыть этот репозиторий как workspace в Cursor, скиллы подхватятся из `.cursor/skills/`.
 
-Открой любой проект в Cursor и скажи: «заведи задачу …» / `jira write`.
-
-## Настройка Jira
+## Настройка
 
 ```bash
-cd jira-write
 python3 -m pip install -r scripts/requirements.txt
 cp scripts/.env.example scripts/.env
-# впиши JIRA_PAT (или логин/пароль)
 ```
 
-Все команды по умолчанию только **preview**. Запись — с `--apply` после подтверждения.
+В `.env` нужен `JIRA_PAT` (или логин/пароль). Для страниц спринта — отдельно `CONFLUENCE_PAT`. Для истории с MR — отдельно `GITLAB_PAT` / `GITHUB_PAT`. Токены в git и в чат не класть.
+
+Отчёты пишутся в `reports/` (в git не входят).
+
+Правила создания задач CAT2: `config/issue-creation-rules.md`. Поля и алиасы: `scripts/config/projects/CAT2.json`.
+
+Для другого Jira-проекта скопируй `CAT2.json` и поправь поля. `sprint-management` заточен под CAT2 (даты, Confluence parent id).
+
+## CLI (из корня репозитория)
+
+Запись в Jira — только с `--apply` после подтверждения.
 
 ```bash
-python3 scripts/cli/get_create_metadata.py --project CAT2
 python3 scripts/cli/create_issue.py --input issue.json
-python3 scripts/cli/create_issue.py --input issue.json --apply
+python3 scripts/cli/get_issue.py CAT2-1234
+python3 scripts/cli/search_issues.py --jql "project = CAT2 AND status = Testing"
+python3 scripts/cli/get_issue_history.py CAT2-1234
+python3 scripts/cli/get_sprint_snapshot.py
+python3 scripts/cli/get_testing_monitor.py
+python3 scripts/cli/get_employee_analysis.py --employee маша --months 2
+python3 scripts/cli/manage_sprint.py --start 27.07.26 --end 07.08.26 --goal "…"
 ```
-
-Токен в чат и в git не класть.

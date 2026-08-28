@@ -1,0 +1,27 @@
+# Настройки создания спринтов CAT2 + страниц Confluence.
+project: CAT2
+
+# Родительская страница «CAT2 Спринты».
+confluence:
+  parent_page_id: "823380099"
+  space_key: BIZ
+
+# Время старта/финиша спринта (как у последних CAT2-спринтов).
+schedule:
+  timezone_offset: "+05:00"
+  start_hour: 10
+  start_minute: 0
+  end_hour: 22
+  end_minute: 0
+
+# Автозапуск / автозавершение через поле Agile autoStartStop.
+auto_start_stop: true
+
+# Перенос незавершённых: incompleteIssuesDestinationId.
+# -1 = backlog; положительный id = следующий спринт.
+incomplete_destination:
+  backlog_id: -1
+  prefer_next_sprint: true
+
+# Лимит поля goal в Jira (символы). Ссылку на Confluence сохраняем всегда.
+goal_max_chars: 8000
