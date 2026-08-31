@@ -19,6 +19,7 @@ https://github.com/kamisa1999-chipmunk/jira-write
 | `skills/testing-monitor` | очередь To Test и ёмкость теста |
 | `skills/sprint-management` | новый спринт + страница Confluence |
 | `skills/jira-employee-analysis` | факты по сотруднику из Jira (без ОС) |
+| `skills/sa-review` | ревью SA-задачи по чек-листу (self-check / review, без карточек людей) |
 
 Путь `skill/` оставлен как ярлык на `skills/jira-write`, чтобы старая инструкция `ln -s …/skill` не ломалась.
 
@@ -33,6 +34,7 @@ ln -s "$(pwd)/skills/sprint-review" ~/.cursor/skills/sprint-review
 ln -s "$(pwd)/skills/testing-monitor" ~/.cursor/skills/testing-monitor
 ln -s "$(pwd)/skills/sprint-management" ~/.cursor/skills/sprint-management
 ln -s "$(pwd)/skills/jira-employee-analysis" ~/.cursor/skills/jira-employee-analysis
+ln -s "$(pwd)/skills/sa-review" ~/.cursor/skills/sa-review
 ```
 
 Если открыть этот репозиторий как workspace в Cursor, скиллы подхватятся из `.cursor/skills/`.
