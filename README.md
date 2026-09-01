@@ -19,7 +19,7 @@ https://github.com/kamisa1999-chipmunk/jira-write
 | `skills/testing-monitor` | очередь To Test и ёмкость теста |
 | `skills/sprint-management` | новый спринт + страница Confluence |
 | `skills/jira-employee-analysis` | факты по сотруднику из Jira (без ОС) |
-| `skills/sa-review` | ревью SA: самопроверка (зоны риска) и техническое ревью, без карточек людей |
+| `skills/sa-review` | ревью SA: самопроверка и техническое ревью по очереди, без карточек людей |
 
 Путь `skill/` оставлен как ярлык на `skills/jira-write`, чтобы старая инструкция `ln -s …/skill` не ломалась.
 
