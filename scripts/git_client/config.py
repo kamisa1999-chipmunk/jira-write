@@ -9,6 +9,8 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
+from utils.env import resolve_env_path
+
 from .exceptions import GitConfigError
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
@@ -43,8 +45,8 @@ def load_git_config(env_path: Optional[Path] = None) -> GitConfig:
     Explicit `GIT_PROVIDER=gitlab|github` overrides the preference when that
     provider has a token.
     """
-    path = env_path or DEFAULT_ENV_PATH
-    if path.exists():
+    path = resolve_env_path(DEFAULT_ENV_PATH, env_path)
+    if path:
         load_dotenv(path)
     else:
         load_dotenv()

@@ -2,7 +2,7 @@
 """Dump one Confluence page (title, version, storage→text) for SA review.
 
 Does not modify the page. Token is never printed.
-Works from notes (jira/scripts) or the public jira-write repo (scripts/).
+Finds scripts/ from cwd (или через JIRA_WRITE_REPO_DIR).
 """
 
 from __future__ import annotations
@@ -13,10 +13,12 @@ import re
 import sys
 from pathlib import Path
 
-FALLBACKS = (
-    Path.home() / "Desktop/Projects/notes",
-    Path.home() / "Desktop/Projects/jira-write",
-)
+import os
+
+if os.environ.get("JIRA_WRITE_REPO_DIR"):
+    FALLBACKS = (Path(os.environ["JIRA_WRITE_REPO_DIR"]).expanduser(),)
+else:
+    FALLBACKS = ()
 
 
 def find_scripts_dir() -> Path:
@@ -31,7 +33,8 @@ def find_scripts_dir() -> Path:
             if (scripts / "confluence_client").is_dir():
                 return scripts
     raise SystemExit(
-        "Не найден confluence_client (jira/scripts или scripts/)"
+        "Не найден confluence_client (scripts/). Запусти из корня jira-write "
+        "или задай JIRA_WRITE_REPO_DIR=/путь/к/jira-write"
     )
 
 

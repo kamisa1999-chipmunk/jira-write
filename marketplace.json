@@ -1,0 +1,9 @@
+{
+  "name": "jira-write",
+  "plugins": [
+    {
+      "name": "jira-write",
+      "source": "."
+    }
+  ]
+}

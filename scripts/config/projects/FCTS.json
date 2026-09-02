@@ -1,0 +1,30 @@
+{
+  "project_key": "FCTS",
+  "browse_url": "https://jira01.goldapple.ru/browse",
+  "issue_type_aliases": {
+    "баг": "Bug",
+    "bug": "Bug"
+  },
+  "fields": {
+    "budget": "customfield_10403",
+    "severity": "customfield_11604",
+    "env": "customfield_12200",
+    "platform": "customfield_12201",
+    "epic": "customfield_10014"
+  },
+  "defaults": {
+    "budget": "Не заполнено"
+  },
+  "component_aliases": {
+    "backend": "Backend",
+    "бэк": "Backend"
+  },
+  "priority_aliases": {},
+  "link_relation_aliases": {
+    "relates": "Relates",
+    "связана": "Relates"
+  },
+  "notes": [
+    "Поля severity/env/platform/budget сверены с createmeta FCTS Bug 2026-08-27."
+  ]
+}

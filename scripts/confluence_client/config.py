@@ -9,6 +9,8 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
+from utils.env import resolve_env_path
+
 from .exceptions import ConfluenceConfigError
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
@@ -43,8 +45,8 @@ def load_confluence_config(env_path: Optional[Path] = None) -> ConfluenceConfig:
 
     Uses CONFLUENCE_* only — never JIRA_PAT.
     """
-    path = env_path or DEFAULT_ENV_PATH
-    if path.exists():
+    path = resolve_env_path(DEFAULT_ENV_PATH, env_path)
+    if path:
         load_dotenv(path)
     else:
         load_dotenv()

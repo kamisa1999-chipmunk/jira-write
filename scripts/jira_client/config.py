@@ -9,6 +9,8 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
+from utils.env import resolve_env_path
+
 from .exceptions import JiraConfigError
 
 SCRIPTS_DIR = Path(__file__).resolve().parent.parent
@@ -45,9 +47,9 @@ def load_config(
     env_path: Optional[Path] = None,
     project_override: Optional[str] = None,
 ) -> JiraConfig:
-    """Read `.env` next to scripts/ (or given path) and build config."""
-    path = env_path or DEFAULT_ENV_PATH
-    if path.exists():
+    """Read .env (аргумент → JIRA_WRITE_ENV_FILE → scripts/.env) and build config."""
+    path = resolve_env_path(DEFAULT_ENV_PATH, env_path)
+    if path:
         load_dotenv(path)
     else:
         load_dotenv()

@@ -1,0 +1,6 @@
+{
+  "name": "jira-write",
+  "version": "1.0.0",
+  "description": "Jira-скиллы и Python CLI: создание/поиск/история задач, анализ по сотрудникам, снимок спринта, ёмкость команды, мониторинг To Test, sprint-management (спринт + страница Confluence). Проект CAT2 / Goldapple.",
+  "skills": "skills"
+}

@@ -1,6 +1,6 @@
 # jira-write
 
-Публичные Cursor-скиллы и Python CLI для Jira (проект CAT2 / Goldapple). Заметки про людей сюда не входят.
+Публичные Cursor/ZCode-скиллы и Python CLI для Jira (проект CAT2 / Goldapple). Заметки про людей сюда не входят.
 
 Репозиторий специально **не переименовывали**: старая ссылка работает.
 
@@ -39,6 +39,29 @@ ln -s "$(pwd)/skills/sa-review" ~/.cursor/skills/sa-review
 
 Если открыть этот репозиторий как workspace в Cursor, скиллы подхватятся из `.cursor/skills/`.
 
+## Установка в ZCode
+
+Репозиторий упакован как ZCode-плагин (`.zcode-plugin/plugin.json` + `marketplace.json`).
+
+**Плагином (рекомендуется):**
+
+1. Settings → Plugin Management → вкладка Discover → **`+`** → добавить `https://github.com/kamisa1999-chipmunk/jira-write` как marketplace.
+2. На карточке плагина `jira-write` нажать **Get** — все 8 скиллов появятся как `jira-write:<имя-скилла>`.
+3. Код при такой установке живёт в кэше плагина и затирается при обновлении, поэтому `.env` держи вне репозитория и укажи его через переменную окружения:
+
+```bash
+export JIRA_WRITE_ENV_FILE=~/.config/jira-write/.env
+```
+
+**Симлинками (как в Cursor):**
+
+```bash
+ln -s "$(pwd)/skills/jira-write" ~/.zcode/skills/jira-write
+# …и остальные скиллы из skills/ по аналогии
+```
+
+Скиллы подхватятся в новой сессии ZCode.
+
 ## Настройка
 
 ```bash
@@ -48,11 +71,13 @@ cp scripts/.env.example scripts/.env
 
 В `.env` нужен `JIRA_PAT` (или логин/пароль). Для страниц спринта — отдельно `CONFLUENCE_PAT`. Для истории с MR — отдельно `GITLAB_PAT` / `GITHUB_PAT`. Токены в git и в чат не класть.
 
+Порядок поиска `.env`: путь из `JIRA_WRITE_ENV_FILE` → `scripts/.env` → переменные окружения.
+
 Отчёты пишутся в `reports/` (в git не входят).
 
 Правила создания задач CAT2: `config/issue-creation-rules.md`. Поля и алиасы: `scripts/config/projects/CAT2.json`.
 
-Для другого Jira-проекта скопируй `CAT2.json` и поправь поля. `sprint-management` заточен под CAT2 (даты, Confluence parent id).
+Для другого Jira-проекта скопируй `CAT2.json` и поправь поля (пример второго проекта — `scripts/config/projects/FCTS.json`). `sprint-management` заточен под CAT2 (даты, Confluence parent id).
 
 ## CLI (из корня репозитория)
 
@@ -64,6 +89,7 @@ python3 scripts/cli/get_issue.py CAT2-1234
 python3 scripts/cli/search_issues.py --jql "project = CAT2 AND status = Testing"
 python3 scripts/cli/get_issue_history.py CAT2-1234
 python3 scripts/cli/get_sprint_snapshot.py
+python3 scripts/cli/get_sprint_capacity.py
 python3 scripts/cli/get_testing_monitor.py
 python3 scripts/cli/get_employee_analysis.py --employee маша --months 2
 python3 scripts/cli/manage_sprint.py --start 27.07.26 --end 07.08.26 --goal "…"
