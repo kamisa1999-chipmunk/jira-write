@@ -16,6 +16,7 @@ https://github.com/kamisa1999-chipmunk/jira-write
 | `skills/jira-search` | одна задача или поиск по JQL |
 | `skills/jira-history` | changelog и хронология; опционально MR (`--with-git`) |
 | `skills/sprint-review` | снимок активного спринта |
+| `skills/sprint-results` | черновик итогов спринта для Mattermost |
 | `skills/testing-monitor` | очередь To Test и ёмкость теста |
 | `skills/sprint-management` | новый спринт + страница Confluence |
 | `skills/jira-employee-analysis` | факты по сотруднику из Jira (без ОС) |
@@ -31,6 +32,7 @@ ln -s "$(pwd)/skills/jira-write" ~/.cursor/skills/jira-write
 ln -s "$(pwd)/skills/jira-search" ~/.cursor/skills/jira-search
 ln -s "$(pwd)/skills/jira-history" ~/.cursor/skills/jira-history
 ln -s "$(pwd)/skills/sprint-review" ~/.cursor/skills/sprint-review
+ln -s "$(pwd)/skills/sprint-results" ~/.cursor/skills/sprint-results
 ln -s "$(pwd)/skills/testing-monitor" ~/.cursor/skills/testing-monitor
 ln -s "$(pwd)/skills/sprint-management" ~/.cursor/skills/sprint-management
 ln -s "$(pwd)/skills/jira-employee-analysis" ~/.cursor/skills/jira-employee-analysis
@@ -46,7 +48,7 @@ ln -s "$(pwd)/skills/sa-review" ~/.cursor/skills/sa-review
 **Плагином (рекомендуется):**
 
 1. Settings → Plugin Management → вкладка Discover → **`+`** → добавить `https://github.com/kamisa1999-chipmunk/jira-write` как marketplace.
-2. На карточке плагина `jira-write` нажать **Get** — все 8 скиллов появятся как `jira-write:<имя-скилла>`.
+2. На карточке плагина `jira-write` нажать **Get** — все скиллы появятся как `jira-write:<имя-скилла>`.
 3. Код при такой установке живёт в кэше плагина и затирается при обновлении, поэтому `.env` держи вне репозитория и укажи его через переменную окружения:
 
 ```bash
